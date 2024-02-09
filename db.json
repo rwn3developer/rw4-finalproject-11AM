@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "name": "milan",
+      "email": "milan",
+      "password": "1234",
+      "role": "admin",
+      "id": "1"
+    },
+    {
+      "id": "7d9e",
+      "name": "jigar",
+      "email": "jigar@gmail.com",
+      "password": "12345",
+      "role": "user"
+    },
+    {
+      "id": "b8dd",
+      "name": "purvi",
+      "email": "purvi@gmail.com",
+      "password": "12345",
+      "role": "user"
+    },
+    {
+      "id": "e2a2",
+      "name": "jenish",
+      "email": "jenish@gmail.com",
+      "password": "1234",
+      "role": "user"
+    }
+  ]
+}
