@@ -7,9 +7,7 @@ import { useAuth } from '../context/Auth';
 function Header() {
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
-
-
+ 
   const logout = () => {
      localStorage.removeItem('userLogin');
      setAuth({
@@ -18,12 +16,6 @@ function Header() {
      })
      navigate("/");
   }
-
-  useEffect(()=>{
-    setIsOpen(!isOpen);
-  },[])
-
-
 
   return (
     <nav className="navbar navbar-expand-lg bg-primary">

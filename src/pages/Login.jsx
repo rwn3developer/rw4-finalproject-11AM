@@ -32,7 +32,6 @@ const Login = () => {
                     
            }else{
             alert("Email and Password not valid");
-            navigate('/')
            }
         } catch (err) {
             console.log(err);
@@ -40,7 +39,7 @@ const Login = () => {
         }
         setEmail("");
         setPassword("");
-        navigate('/');
+        navigate('/admin/dashboard');
     }
 
    
