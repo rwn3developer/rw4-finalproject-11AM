@@ -4,11 +4,14 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
     
-    const [auth,setAuth] = useState("")
+    const [auth,setAuth] = useState()
 
     useEffect(()=>{ 
-        const loginUser = JSON.parse(localStorage.getItem('userLogin'));
+        const loginUser = JSON.parse(localStorage.getItem('userLogin')) ? JSON.parse(localStorage.getItem('userLogin')) : ""
+        if(loginUser){
             setAuth(loginUser)
+        }
+           
     },[])
 
     return (

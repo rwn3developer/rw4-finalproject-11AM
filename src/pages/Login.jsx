@@ -20,6 +20,7 @@ const Login = () => {
             let { data } = await axios.get(`http://localhost:8000/users/?email=${email}&password=${password}`);
             if (data.length > 0) {
                 localStorage.setItem('userLogin',JSON.stringify(data[0]));
+                setAuth(data[0])
                 toast.success("User successfully Login")
             } else {
                 toast.error("User not Login plese check valid email and password")
