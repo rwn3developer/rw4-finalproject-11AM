@@ -60,10 +60,10 @@ function Header() {
                 Details
               </a>
               <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="#">Name :- {auth.user?.name}</a></li>
-                <li><a className="dropdown-item" href="#">Email :- {auth.user?.email}</a></li>
+                <li><Link className="dropdown-item" href="#">Name :- {auth.user?.name}</Link></li>
+                <li><Link className="dropdown-item" href="#">Email :- {auth.user?.email}</Link></li>
                 <li><hr className="dropdown-divider" /></li>
-                <li><a className="dropdown-item" href="#">Something else here</a></li>
+                <li><Link className="dropdown-item" href="#">{auth.user?.role}</Link></li>
               </ul>
             </li>
             <li className="nav-item">
