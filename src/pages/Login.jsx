@@ -1,11 +1,16 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
+import { useAuth } from '../context/Auth';
 
 const Login = () => {
     // let URL = `http://localhost:8000/users`;
+
+    const [auth,setAuth] = useAuth();
+
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -24,6 +29,10 @@ const Login = () => {
             return false;
         }
     }
+
+    useEffect(()=>{
+        console.log(auth);
+    },[])
 
     return (
         <>
