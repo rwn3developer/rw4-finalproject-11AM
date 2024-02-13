@@ -4,12 +4,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
 import { useAuth } from '../context/Auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     // let URL = `http://localhost:8000/users`;
-
-    const [auth,setAuth] = useAuth();
-
+    // console.log(useAuth());
+    const navigate = useNavigate();
+    const [auth,setAuth] = useAuth()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -18,23 +19,31 @@ const Login = () => {
         e.preventDefault();
         try {
             let { data } = await axios.get(`http://localhost:8000/users/?email=${email}&password=${password}`);
-            if (data.length > 0) {
+            if(data.length !== 0){
+
                 localStorage.setItem('userLogin',JSON.stringify(data[0]));
-                setAuth(data[0])
-                toast.success("User successfully Login")
-            } else {
-                toast.error("User not Login plese check valid email and password")
-            }
+                setAuth({
+                    ...auth,
+                    user : data[0]
+                })
+                setEmail("");
+                setPassword(""); 
+                navigate('/product')
+                    
+           }else{
+            alert("Email and Password not valid");
+            navigate('/')
+           }
         } catch (err) {
             console.log(err);
             return false;
         }
+        setEmail("");
+        setPassword("");
+        navigate('/');
     }
 
-    useEffect(()=>{
-        console.log(auth);
-    },[])
-
+   
     return (
         <>
             <Header />

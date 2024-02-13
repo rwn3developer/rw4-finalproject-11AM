@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../context/Auth';
 
 function Header() {
+  const navigate = useNavigate();
+  const [auth, setAuth] = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [islogin, setLogin] = useState({});
 
   const logout = () => {
      localStorage.removeItem('userLogin');
-     toast.success("User successfully Logout")
+     setAuth({
+          ...auth,
+          user : ""
+     })
+     navigate("/");
   }
 
-  useEffect(() => {
-    let user = JSON.parse(localStorage.getItem('userLogin'))
-    setLogin(user)
-  }, [])
+  useEffect(()=>{
+    setIsOpen(!isOpen);
+  },[])
+
+
 
   return (
     <nav className="navbar navbar-expand-lg bg-primary">
@@ -29,7 +37,7 @@ function Header() {
 
 
             {
-              (!islogin) ? (<>
+              (!auth.user) ? (<>
                 <li className="nav-item">
                   <Link to={`/`} className="nav-link active" aria-current="page">Login</Link>
                 </li>
@@ -60,8 +68,8 @@ function Header() {
                 Details
               </a>
               <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="#">Name :- {islogin?.name}</a></li>
-                <li><a className="dropdown-item" href="#">Email :- {islogin?.email}</a></li>
+                <li><a className="dropdown-item" href="#">Name :- {auth.user?.name}</a></li>
+                <li><a className="dropdown-item" href="#">Email :- {auth.user?.email}</a></li>
                 <li><hr className="dropdown-divider" /></li>
                 <li><a className="dropdown-item" href="#">Something else here</a></li>
               </ul>
