@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
 import { useAuth } from '../context/Auth';
 import { useNavigate } from 'react-router-dom';
+import { signInWithPopup } from 'firebase/auth';
+import {auth , googleAuthProvider} from '../firebase';
 
 const Login = () => {
     // let URL = `http://localhost:8000/users`;
@@ -42,6 +44,16 @@ const Login = () => {
         navigate('/admin/dashboard');
     }
 
+    const googleLogin = async() => {
+        try{
+            const result = await signInWithPopup(auth,googleAuthProvider);
+            console.log(result);
+        }catch(err){
+            console.log(err);
+            return false;
+        }
+    }
+
    
     return (
         <>
@@ -63,11 +75,15 @@ const Login = () => {
                                 <td></td>
                                 <td><input type="submit" value="Login" /></td>
                             </tr>
+                           
                         </table>
                     </form>
                 </div>
-                </div>
+               
+                </div><br></br>
+                <button onClick={ () => googleLogin() }>Login with google</button>
             </div>
+           
             <ToastContainer />
         </>
 
