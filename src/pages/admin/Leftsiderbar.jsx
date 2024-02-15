@@ -20,7 +20,7 @@ const Leftsiderbar = () => {
                         </li>
 
                         <li class="list-group-item" aria-disabled="true">
-                            <Link className='btn btn-info w-100'>
+                            <Link to={`/admin/product`} className='btn btn-info w-100'>
                                 Product
                             </Link>
                         </li>

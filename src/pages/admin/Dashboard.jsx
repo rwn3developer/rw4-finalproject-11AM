@@ -5,15 +5,14 @@ import Leftsiderbar from './Leftsiderbar'
 const Dashboard = () => {
   return (
         <div>
-            <Header/>
-           
+                <Header/>
                 <div className='row p-5 shadow'>
                       <div className='col-lg-3'>
                           <Leftsiderbar/>
                       </div>
 
                       <div className='col-lg-9'>
-                          <h1>Item</h1>
+                          <h3>Dashboard</h3>
                       </div>
                 </div>
 
