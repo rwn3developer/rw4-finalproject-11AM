@@ -8,13 +8,13 @@ const Leftsiderbar = () => {
                 <ul class="list-group">
                    
                         <li class="list-group-item" aria-disabled="true">
-                            <Link className='btn btn-info w-100'>
+                            <Link to={`/admin/dashboard`} className='btn btn-info w-100'>
                                 Dashboard
                             </Link>
                         </li>
 
                         <li class="list-group-item" aria-disabled="true">
-                            <Link className='btn btn-info w-100'>
+                            <Link to={`/admin/category`} className='btn btn-info w-100'>
                                 Category
                             </Link>
                         </li>

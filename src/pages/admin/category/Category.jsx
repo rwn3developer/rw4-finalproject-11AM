@@ -1,12 +1,11 @@
 import React from 'react'
-import Header from '../Header'
-import Leftsiderbar from './Leftsiderbar'
+import Header from '../../Header'
+import Leftsiderbar from '../Leftsiderbar'
 
-const Dashboard = () => {
+const Category = () => {
   return (
-        <div>
-            <Header/>
-           
+   <div>
+        <Header/>
                 <div className='row p-5 shadow'>
                       <div className='col-lg-3'>
                           <Leftsiderbar/>
@@ -17,9 +16,8 @@ const Dashboard = () => {
                       </div>
                 </div>
 
-            
-        </div>
+            </div>  
   )
 }
 
-export default Dashboard
+export default Category
