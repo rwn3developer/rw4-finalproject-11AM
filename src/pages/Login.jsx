@@ -6,7 +6,7 @@ import Header from './Header';
 import { useAuth } from '../context/Auth';
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
-import {auth , googleAuthProvider} from '../firebase';
+import {gauth, googleAuthProvider} from '../firebase';
 
 const Login = () => {
     // let URL = `http://localhost:8000/users`;
@@ -46,7 +46,7 @@ const Login = () => {
 
     const googleLogin = async() => {
         try{
-            const result = await signInWithPopup(auth,googleAuthProvider);
+            const result = await signInWithPopup(gauth,googleAuthProvider);
             console.log(result);
         }catch(err){
             console.log(err);

@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../Header'
 import Leftsiderbar from '../Leftsiderbar'
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 
 const Category = () => {
+
+    const [category,setCategory] = useState([]);
+
+    const getCategory = async() => {
+        try{
+            let {data} = await axios.get(`http://localhost:8000/category`);
+            setCategory(data);
+        }catch(err){
+            console.log(err);
+            return false;
+        }
+    }
+
+    useEffect(()=>{
+        getCategory();
+    },[])
+
     return (
         <div>
             <Header />
@@ -33,10 +51,17 @@ const Category = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                       
-                                    </tr>
+                                    {
+                                        category.map((item,i)=>{i=i+1
+                                            return (
+                                                <tr>
+                                                    <td scope="row">{i}</td>
+                                                    <td>{item.category}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                   
                                   
                                 </tbody>
                             </table>
