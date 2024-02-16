@@ -30,8 +30,7 @@ const Login = () => {
                 })
                 setEmail("");
                 setPassword(""); 
-                navigate('/product')
-                    
+                navigate('/admin/dashboard');
            }else{
             alert("Email and Password not valid");
            }
@@ -41,7 +40,7 @@ const Login = () => {
         }
         setEmail("");
         setPassword("");
-        navigate('/admin/dashboard');
+        
     }
 
     const googleLogin = async() => {

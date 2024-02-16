@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../Header'
 import Leftsiderbar from '../Leftsiderbar'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Product = () => {
+
+  const [products,setProduct] = useState([]);
+
+  const getProduct = async() => {
+    try{
+        let {data} = await axios.get(`http://localhost:8000/products`);
+        setProduct(data);
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
+useEffect(()=>{
+  getProduct();
+},[])
+
   return (
     <div>
       <Header />
@@ -39,7 +57,7 @@ const Product = () => {
                 </thead>
                 <tbody>
                   {
-                    [].map((item, i) => {
+                    products.map((item, i) => {
                       i = i + 1
                       return (
                         <tr>
