@@ -48,7 +48,7 @@
       "qty": "1",
       "description": "nice vivo",
       "image": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/k/l/l/-original-imagtc5fz9spysyk.jpeg?q=70&crop=false",
-      "market": "latest",
+      "market": "upcomming",
       "status": "active"
     },
     {
@@ -59,7 +59,7 @@
       "qty": "1",
       "description": "nice oppo",
       "image": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/2/r/f/-original-imagweqhwyards5f.jpeg?q=70&crop=false",
-      "market": "upcomming",
+      "market": "latest",
       "status": "active"
     },
     {
@@ -70,7 +70,7 @@
       "qty": "2",
       "description": "nice samsung",
       "image": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/g/c/x/-original-imagtyxdm82fsv6m.jpeg?q=70&crop=false",
-      "market": "best",
+      "market": "upcomming",
       "status": "active"
     }
   ]

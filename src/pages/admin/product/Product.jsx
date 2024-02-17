@@ -3,10 +3,27 @@ import Header from '../../Header'
 import Leftsiderbar from '../Leftsiderbar'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Product = () => {
 
   const [products,setProduct] = useState([]);
+  const [mstatus,setMarket] = useState(["latest","upcomming","best"])
+  const [status,setStatus] = useState(["active","inactive"])
+  const [changeMarket,setChangeMarket] = useState("");
+
+    const changeMarketStatus = async(id,value) => {
+        try{
+          let record = await axios.patch(`http://localhost:8000/products/${id}`,{
+            market : value
+          })
+          toast.success("Market status successfully add");
+        }catch(err){
+          console.log(err);
+          return false;
+        }
+    }
+
 
   const getProduct = async() => {
     try{
@@ -45,12 +62,12 @@ useEffect(()=>{
                     <th scope="col">Srno</th>
                     <th scope="col">Category</th>
                     <th scope="col">Product</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Price</th>
                     <th scope="col">Qty</th>
                     <th scope="col">Description</th>
-
-
-
+                    <th scope="col">Market Status</th>
+                    <th scope="col">Status</th>
 
 
                   </tr>
@@ -63,6 +80,51 @@ useEffect(()=>{
                         <tr>
                           <td scope="row">{i}</td>
                           <td>{item.category}</td>
+                          <td>{item.product}</td>
+                          <td>
+                              <img src={item.image} width="100"/>
+                          </td>
+                          <td>{item.price}</td>
+                          <td>{item.qty}</td>
+                          <td>{item.description}</td>
+                          <td>
+                            <select onChange={ (e) => changeMarketStatus(item.id,e.target.value) }  className='form-control'>
+                                <option>---select market status</option>
+                                {
+                                  mstatus.map((val)=>{
+                                    return(
+                                      item.market == val ? (
+                                        <option selected>{val}</option>
+                                      ) : (
+                                        <option>{val}</option>
+                                      )
+                                    )
+                                   
+                                     
+                                    
+                                  })
+                                }
+                               
+                            </select>
+                          </td>
+                          <td>
+                            <select  className='form-control'>
+                                <option>---select status</option>
+                               {
+                                  status.map((val)=>{
+                                    return (
+                                      item.status == val ? (
+                                        <option value={val} selected>{val}</option>
+                                      ) : (
+                                        <option value={val}>{val}</option>
+                                      )
+                                    )
+                                  })
+                               }
+
+                            </select>
+                          </td>
+                          
                         </tr>
                       )
                     })
