@@ -18,30 +18,22 @@ const Addproduct = () => {
     const [market,setMarket] = useState("")
     const [status,setStatus] = useState("")
 
-    const getCategory = async() => {
-        try{
-            let {data} = await axios.get(`http://localhost:8000/category`);
-            setCategoryRecord(data);
-        }catch(err){
-            console.log(err);
-            return false;
+        const getCategory = async() => {
+            try{
+                let {data} = await axios.get(`http://localhost:8000/category`);
+                setCategoryRecord(data);
+            }catch(err){
+                console.log(err);
+                return false;
+            }
         }
-    }
 
-    useEffect(()=>{
-        getCategory();
-    },[])
+        useEffect(()=>{
+            getCategory();
+        },[])
 
     const handleSubmit= async(e) => {
         e.preventDefault();
-        // console.log(category);
-        // console.log(product);
-        // console.log(price);
-        // console.log(qty);
-        // console.log(description);
-        // console.log(image);
-        // console.log(market);
-        // console.log(status);
         try{
             let addproduct = await axios.post(`http://localhost:8000/products`,{
                 category : category,

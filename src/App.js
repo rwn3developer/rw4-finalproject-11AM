@@ -8,6 +8,7 @@ import Category from './pages/admin/category/Category';
 import Product from './pages/admin/product/Product';
 import Addcategory from './pages/admin/category/Addcategory';
 import Addproduct from './pages/admin/product/Addproduct';
+import Home from './pages/user/Home';
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
               <Route path='/admin/product' element={<Product/>}/>
               <Route path='/admin/addcategory' element={<Addcategory/>}/>
               <Route path='/admin/addproduct' element={<Addproduct/>}/>
+
+
+              {/* users */}
+              <Route path='/home' element={<Home/>}/>
           </Routes>
       </BrowserRouter>
   );

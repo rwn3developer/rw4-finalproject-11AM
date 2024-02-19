@@ -50,7 +50,7 @@ function Header() {
 
             
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Home</a>
+              <Link to={`/home`} className="nav-link active" aria-current="page">Home</Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Link</a>
