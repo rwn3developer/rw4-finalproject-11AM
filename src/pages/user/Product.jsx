@@ -6,6 +6,8 @@ const UserProduct = () => {
     
     const [products,setProducts] = useState([]);
 
+    const [marketStateFilter,setMarketStatusFilter] = useState("");
+
     const getAllProduct = async() => {
         try{
             let {data} = await axios.get(`http://localhost:8000/products`);
@@ -15,6 +17,18 @@ const UserProduct = () => {
             return false;
         }
     }
+
+    useEffect(()=>{
+        axios.get(`http://localhost:8000/products?market=${marketStateFilter}`)
+        .then((res)=>{
+            setProducts(res.data)
+        }).catch((err)=>{
+            console.log(err);
+            return false;
+        })
+        
+       
+    },[marketStateFilter])
 
     useEffect(()=>{
         getAllProduct();
@@ -46,11 +60,11 @@ const UserProduct = () => {
                             <div className='col-lg-6'></div>
 
                             <div className='col-lg-3'>
-                                <select className='form-control'>
-                                    <option>---select status---</option>
-                                    <option>latest</option>
-                                    <option>best</option>
-                                    <option>upcomming</option>
+                                <select onChange={ (e) => setMarketStatusFilter(e.target.value) }  value={marketStateFilter} className='form-control'>
+                                    <option value="">---select status---</option>
+                                    <option value="latest">latest</option>
+                                    <option value="best">best</option>
+                                    <option value="upcomming">upcomming</option>
                                 </select>
                             </div>
 
