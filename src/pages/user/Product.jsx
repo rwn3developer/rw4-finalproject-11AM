@@ -6,6 +6,8 @@ const UserProduct = () => {
 
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState([]);
+    const [cat, setCat] = useState("");
+    
 
     const [marketStateFilter, setMarketStatusFilter] = useState("");
 
@@ -29,17 +31,29 @@ const UserProduct = () => {
         }
     }
 
+    //market status wise filter
     useEffect(() => {
-        axios.get(`http://localhost:8000/products?market=${marketStateFilter}`)
+        axios.get(`http://localhost:8000/products?market=${marketStateFilter}&category=${cat}`)
             .then((res) => {
+                console.log(cat);
                 setProducts(res.data)
             }).catch((err) => {
                 console.log(err);
                 return false;
             })
-
-
     }, [marketStateFilter])
+
+    //category wise product filter
+    const categoryFilter = async(cate) => {
+        try{
+            let {data} = await axios.get(`http://localhost:8000/products?category=${cate}&market=${marketStateFilter}`);
+            setCat(cate)
+            setProducts(data)
+        }catch(err){
+            console.log(err);
+            return false;
+        }
+    }
 
     useEffect(() => {
         getCategory();
@@ -60,7 +74,7 @@ const UserProduct = () => {
                                     {
                                         category.map((val) => {
                                             return (
-                                                <button className='w-100 mb-3 btn btn-info'>{val.category}</button>
+                                                <button   onClick={ () => categoryFilter(val.category) } className='w-100 mb-3 btn btn-info'>{val.category}</button>
                                             )
                                         })
                                     }
@@ -90,7 +104,7 @@ const UserProduct = () => {
                         </div>
 
                        <div className='all-clear mt-5'> 
-                            <button className='w-100 mb-3 btn btn-info'>All Clear</button>
+                            <button onClick={ () => getAllProduct() } className='w-100 mb-3 btn btn-info'>All Clear</button>
                        </div>
 
 
@@ -143,7 +157,8 @@ const UserProduct = () => {
                                                     <hr />
                                                     <p className="card-text">{val.description}</p>
                                                     <h5>{val.price}</h5>
-                                                    <button className="btn btn-primary">Add Cart</button>
+                                                    <button className="btn btn-primary btn-sm">Add Cart</button>
+                                                    <button className="btn btn-success btn-sm ms-2">View Details</button>
                                                 </div>
                                             </div>
                                         </div>
