@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../Header'
 import axios from 'axios';
+import { useAuth } from '../../context/Auth';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const UserProduct = () => {
 
+    const navigate = useNavigate();
+    const [auth,setAuth] = useAuth();
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState([]);
     const [cat, setCat] = useState("");
@@ -53,6 +58,32 @@ const UserProduct = () => {
             console.log(err);
             return false;
         }
+    }
+
+    //add cart
+    const AddCart = async(id) => {
+        try{
+            if(!auth.user){
+                alert("Login please here")
+                 navigate('/');
+             }
+             let singleProduct = await axios.get(`http://localhost:8000/products/${id}`);
+            //  console.log(auth.user.id);
+             let record = singleProduct.data;
+
+             let addcart = await axios.post(`http://localhost:8000/carts`,{
+                product : record.product,
+                price : record.price,
+                qty : record.qty,
+                image : record.image,
+                user : auth.user.id
+             })
+             toast.success("Product successfully add to cart")
+        }catch(err){
+            console.log(err);
+            return false;
+        }
+       
     }
 
     useEffect(() => {
@@ -157,7 +188,7 @@ const UserProduct = () => {
                                                     <hr />
                                                     <p className="card-text">{val.description}</p>
                                                     <h5>{val.price}</h5>
-                                                    <button className="btn btn-primary btn-sm">Add Cart</button>
+                                                    <button onClick={ () => AddCart(val.id) } className="btn btn-primary btn-sm">Add Cart</button>
                                                     <button className="btn btn-success btn-sm ms-2">View Details</button>
                                                 </div>
                                             </div>

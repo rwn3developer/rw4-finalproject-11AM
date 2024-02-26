@@ -67,7 +67,7 @@ function Header() {
               </ul>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" aria-disabled="true">Cart</Link>
+              <Link to={`/cart`} className="nav-link" aria-disabled="true">Cart</Link>
             </li>
           </ul>
 

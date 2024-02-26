@@ -39,7 +39,7 @@ const Addproduct = () => {
                 category : category,
                 product : product,
                 price : price,
-                qty : qty,
+                qty : 1,
                 description : description,
                 image : image,
                 market : market,
