@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Header from '../Header'
 import axios from 'axios';
 import { useAuth } from '../../context/Auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const UserProduct = () => {
 
     const navigate = useNavigate();
-    const [auth,setAuth] = useAuth();
+    const [auth, setAuth] = useAuth();
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState([]);
     const [cat, setCat] = useState("");
-    
+
 
     const [marketStateFilter, setMarketStatusFilter] = useState("");
 
@@ -49,41 +49,48 @@ const UserProduct = () => {
     }, [marketStateFilter])
 
     //category wise product filter
-    const categoryFilter = async(cate) => {
-        try{
-            let {data} = await axios.get(`http://localhost:8000/products?category=${cate}&market=${marketStateFilter}`);
+    const categoryFilter = async (cate) => {
+        try {
+            let { data } = await axios.get(`http://localhost:8000/products?category=${cate}&market=${marketStateFilter}`);
             setCat(cate)
             setProducts(data)
-        }catch(err){
+        } catch (err) {
             console.log(err);
             return false;
         }
     }
 
     //add cart
-    const AddCart = async(id) => {
-        try{
-            if(!auth.user){
+    const AddCart = async (id) => {
+        try {
+            if (!auth.user) {
                 alert("Login please here")
-                 navigate('/');
-             }
-             let singleProduct = await axios.get(`http://localhost:8000/products/${id}`);
+                navigate('/');
+            }
+            let singleProduct = await axios.get(`http://localhost:8000/products/${id}`);
             //  console.log(auth.user.id);
-             let record = singleProduct.data;
+            let record = singleProduct.data;
 
-             let addcart = await axios.post(`http://localhost:8000/carts`,{
-                product : record.product,
-                price : record.price,
-                qty : record.qty,
-                image : record.image,
-                user : auth.user.id
-             })
-             toast.success("Product successfully add to cart")
-        }catch(err){
+            let dup = await axios.get(`http://localhost:8000/carts?user=${auth.user.id}&productId=${record.id}`)
+            // console.log(!(dup.data != 0));
+            if (!(dup.data != 0)) {
+                let addcart = await axios.post(`http://localhost:8000/carts`, {
+                    product: record.product,
+                    price: record.price,
+                    qty: record.qty,
+                    image: record.image,
+                    user: auth.user.id,
+                    productId: record.id
+                })
+                toast.success("Product successfully add to cart") 
+            } else {
+                toast.error("Product already added");
+                return false;
+            }
+        } catch (err) {
             console.log(err);
             return false;
         }
-       
     }
 
     useEffect(() => {
@@ -105,11 +112,11 @@ const UserProduct = () => {
                                     {
                                         category.map((val) => {
                                             return (
-                                                <button   onClick={ () => categoryFilter(val.category) } className='w-100 mb-3 btn btn-info'>{val.category}</button>
+                                                <button onClick={() => categoryFilter(val.category)} className='w-100 mb-3 btn btn-info'>{val.category}</button>
                                             )
                                         })
                                     }
-                                    
+
                                 </li>
                             </ul>
                         </div>
@@ -134,9 +141,9 @@ const UserProduct = () => {
                             </div>
                         </div>
 
-                       <div className='all-clear mt-5'> 
-                            <button onClick={ () => getAllProduct() } className='w-100 mb-3 btn btn-info'>All Clear</button>
-                       </div>
+                        <div className='all-clear mt-5'>
+                            <button onClick={() => getAllProduct()} className='w-100 mb-3 btn btn-info'>All Clear</button>
+                        </div>
 
 
                         {/* <select className='form-control'>
@@ -163,7 +170,7 @@ const UserProduct = () => {
                             </div>
 
                             <div className='col-lg-6'>
-                                <input type='search' className='form-control' placeholder='Product search here'/>
+                                <input type='search' className='form-control' placeholder='Product search here' />
                             </div>
 
                             <div className='col-lg-3'>
@@ -188,8 +195,10 @@ const UserProduct = () => {
                                                     <hr />
                                                     <p className="card-text">{val.description}</p>
                                                     <h5>{val.price}</h5>
-                                                    <button onClick={ () => AddCart(val.id) } className="btn btn-primary btn-sm">Add Cart</button>
-                                                    <button className="btn btn-success btn-sm ms-2">View Details</button>
+                                                    <button onClick={() => AddCart(val.id)} className="btn btn-primary btn-sm">Add Cart</button>
+                                                    <Link to={`/productdetails/${val.id}`}>
+                                                        <button className="btn btn-success btn-sm ms-2">View Details</button>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,6 +209,8 @@ const UserProduct = () => {
                     </div>
                 </div>
             </div>
+
+            
 
         </div>
     )
