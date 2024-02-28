@@ -12,6 +12,7 @@ import Home from './pages/user/Home';
 import UserProduct from './pages/user/Product';
 import Cart from './pages/user/Cart';
 import ProductDetails from './pages/admin/product/ProductDetails';
+import Users from './pages/admin/Users';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path='/admin/product' element={<Product/>}/>
               <Route path='/admin/addcategory' element={<Addcategory/>}/>
               <Route path='/admin/addproduct' element={<Addproduct/>}/>
+              <Route path='/admin/user' element={<Users/>}/>
 
 
               {/* users */}

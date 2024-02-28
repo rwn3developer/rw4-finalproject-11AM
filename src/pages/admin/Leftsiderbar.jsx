@@ -6,10 +6,15 @@ const Leftsiderbar = () => {
         <div className='row'>
             <div className='col-lg-12'>
                 <ul class="list-group">
-                   
                         <li class="list-group-item" aria-disabled="true">
                             <Link to={`/admin/dashboard`} className='btn btn-info w-100'>
                                 Dashboard
+                            </Link>
+                        </li>
+
+                        <li class="list-group-item" aria-disabled="true">
+                            <Link to={`/admin/user`} className='btn btn-info w-100'>
+                                Users
                             </Link>
                         </li>
 
