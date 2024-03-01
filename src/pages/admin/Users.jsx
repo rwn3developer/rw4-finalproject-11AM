@@ -54,7 +54,7 @@ const Users = () => {
                                                 <td>{val.name}</td>
                                                 <td>{val.email}</td>
                                                 <td>
-                                                    <Link>
+                                                    <Link to={`/admin/userdetails/${val.id}`}>
                                                         <button className='btn btn-success btn-sm'>View</button>
                                                     </Link>
                                                     <button className='btn btn-danger btn-sm mx-2'>Delete</button>

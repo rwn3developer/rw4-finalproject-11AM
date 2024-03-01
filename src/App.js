@@ -13,6 +13,7 @@ import UserProduct from './pages/user/Product';
 import Cart from './pages/user/Cart';
 import ProductDetails from './pages/admin/product/ProductDetails';
 import Users from './pages/admin/Users';
+import Userdetails from './pages/admin/Userdetails';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path='/admin/addcategory' element={<Addcategory/>}/>
               <Route path='/admin/addproduct' element={<Addproduct/>}/>
               <Route path='/admin/user' element={<Users/>}/>
+              <Route path='/admin/userdetails/:id' element={<Userdetails/>}/>
 
 
               {/* users */}
