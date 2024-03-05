@@ -3,12 +3,9 @@ import Header from '../Header'
 import { useState } from 'react'
 import axios from 'axios';
 import { useAuth } from '../../context/Auth';
-
 const Cart = () => {
-
     const [cart,setCart] = useState([]);
     const [auth,setAuth] = useAuth();
-
     const getCart = async() => {
         try{
             let {data} = await axios.get(`http://localhost:8000/carts?user=${auth.user.id}`);
@@ -18,10 +15,9 @@ const Cart = () => {
             return false
         }
     }
-
     useEffect(()=>{
         getCart();
-    },[])
+    },[auth.user?.id])
 
   return (
     <div>
