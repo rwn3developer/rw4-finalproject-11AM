@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../Header'
 import Leftsiderbar from './Leftsiderbar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useAuth } from '../../context/Auth'
 
 const Users = () => {
-
+    const navigate = useNavigate();
+    const [auth,setAuth] = useAuth();
     const [users,setUsers] = useState([]);
+
+     //if user is admin this access
+     useEffect(()=>{
+        if(auth?.user?.role === "user"){
+            navigate('/')
+        } 
+    })
 
     const getUsers = async() => {
         try{

@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../Header'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useAuth } from '../../../context/Auth'
 
 const ProductDetails = () => {
-
+    const navigate = useNavigate();
     const {id} = useParams();
     const [product,setProduct] = useState({});
+    const[auth,setAuth] = useAuth();
+
+     //if user is admin this access
+     useEffect(()=>{
+        if(auth?.user?.role === "user"){
+            navigate('/')
+        } 
+    })
+
     const getProduct = async() => {
         try{
             let {data} = await axios.get(`http://localhost:8000/products/${id}`);

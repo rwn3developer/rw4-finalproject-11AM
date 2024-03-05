@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../Header'
 import Leftsiderbar from '../Leftsiderbar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../../context/Auth'
 
 const Product = () => {
-
+  const navigate = useNavigate();
+  const [auth,setAuth] = useAuth();
   const [products,setProduct] = useState([]);
   const [mstatus,setMarket] = useState(["latest","upcomming","best"])
   const [status,setStatus] = useState(["active","inactive"])
   const [changeMarket,setChangeMarket] = useState("");
+
+   //if user is admin this access
+   useEffect(()=>{
+    if(auth?.user?.role === "user"){
+        navigate('/')
+    } 
+  })
 
     const changeMarketStatus = async(id,value) => {
         try{

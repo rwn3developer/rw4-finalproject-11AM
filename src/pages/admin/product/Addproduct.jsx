@@ -4,8 +4,12 @@ import Leftsiderbar from '../Leftsiderbar'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../../../context/Auth';
+import { useNavigate } from 'react-router-dom';
 
 const Addproduct = () => {
+    const navigate = useNavigate();
+    const [auth,setAuth] = useAuth();
 
     const [categoryRecord,setCategoryRecord] = useState([]);
 
@@ -17,6 +21,13 @@ const Addproduct = () => {
     const [image,setImage] = useState("")
     const [market,setMarket] = useState("")
     const [status,setStatus] = useState("")
+
+    //if user is admin this access
+    useEffect(()=>{
+        if(auth?.user?.role === "user"){
+            navigate('/')
+        } 
+    })
 
         const getCategory = async() => {
             try{
@@ -31,6 +42,8 @@ const Addproduct = () => {
         useEffect(()=>{
             getCategory();
         },[])
+
+        
 
     const handleSubmit= async(e) => {
         e.preventDefault();

@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../Header'
 import Leftsiderbar from '../Leftsiderbar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { useAuth } from '../../../context/Auth';
 
 
 const Category = () => {
-
+    const navigate = useNavigate();
+    const [auth,setAuth] = useAuth();
     const [category,setCategory] = useState([]);
+
+     //if user is admin this access
+     useEffect(()=>{
+        if(auth?.user?.role === "user"){
+            navigate('/')
+        } 
+    })
 
     const getCategory = async() => {
         try{
