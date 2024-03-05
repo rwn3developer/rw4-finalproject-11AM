@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useAuth } from '../../context/Auth';
 
-
 const Userdetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();

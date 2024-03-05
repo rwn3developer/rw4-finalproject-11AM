@@ -30,7 +30,12 @@ const Login = () => {
                 })
                 setEmail("");
                 setPassword(""); 
-                navigate('/admin/dashboard');
+                if(data[0].role === "admin"){
+                      navigate('/admin/dashboard');
+                }else{
+                    navigate('/home');
+                }
+              
            }else{
             alert("Email and Password not valid");
            }
