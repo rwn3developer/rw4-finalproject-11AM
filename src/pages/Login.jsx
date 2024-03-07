@@ -30,6 +30,7 @@ const Login = () => {
                 })
                 setEmail("");
                 setPassword(""); 
+                //role base auth if admin login redirect admin/dashboard another home route redirect
                 if(data[0].role === "admin"){
                       navigate('/admin/dashboard');
                 }else{
